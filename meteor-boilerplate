@@ -37,6 +37,34 @@ case ${1} in
         # Succesful
         echo "Successfully created a view called \"${2}\""
         ;;
+    create:view-sass)
+        if [ -z ${2} ]; then echo "Define a view name!"; exit; fi
+        if [ -d "client/views/$2" ]; then echo "Remove the existing view ($2) folder manually!"; exit; fi
+        if [ -d "client/modules/$2" ]; then echo "There's already a module called $2!"; exit; fi
+        if [ -f "client/views/common/$2.html" ]; then echo "Remove the existing common view ($2) manually!"; exit; fi
+
+        # Create folder
+        mkdir -p client/views/${2}
+
+        # Create files
+        touch client/views/${2}/${2}.js
+        touch client/views/${2}/${2}.scss
+        touch client/views/${2}/${2}.html
+        # Fill files
+        echo "<template name=\"${2}\">" >> client/views/${2}/${2}.html
+        echo "    <p>Template ${2}</p>" >> client/views/${2}/${2}.html
+        echo "</template>"              >> client/views/${2}/${2}.html
+        echo ""                         >> client/views/${2}/${2}.html
+        echo "Template['${2}'].helpers({"  >> client/views/${2}/${2}.js
+        echo "});"                      >> client/views/${2}/${2}.js
+        echo ""                         >> client/views/${2}/${2}.js
+        echo "Template['${2}'].events({"   >> client/views/${2}/${2}.js
+        echo "});"                      >> client/views/${2}/${2}.js
+        echo ""                         >> client/views/${2}/${2}.js
+        echo ""                         >> client/views/${2}/${2}.scss
+        # Succesful
+        echo "Successfully created a view called \"${2}\""
+        ;;
     create:common)
             if [ -z ${2} ]; then echo "Define a common view name!"; exit; fi
             if [ -f "client/views/common/$2.html" ]; then echo "Remove the existing common view ($2) manually!"; exit; fi
@@ -131,6 +159,38 @@ case ${1} in
         # Succesful
         echo "Successfully created a module called \"${2}\""
         ;;
+    create:module-sass)
+        if [ -z ${2} ]; then echo "Define a module name!"; exit; fi
+        if [ -d "client/modules/$2" ]; then echo "Remove the existing module ($2) folder manually!"; exit; fi
+        if [ -d "client/views/$2" ]; then echo "There's already a view called $2!"; exit; fi
+        if [ -f "client/views/common/$2.html" ]; then echo "Remove the existing common view ($2) manually!"; exit; fi
+
+        # Create folder
+        mkdir -p client/modules/${2}
+
+        # Create files
+        touch client/modules/${2}/${2}.js
+        touch client/modules/${2}/${2}.scss
+        touch client/modules/${2}/${2}.html
+
+        # Fill files
+        echo "<template name=\"${2}\">" >> client/modules/${2}/${2}.html
+        echo "    <p>Template ${2}</p>" >> client/modules/${2}/${2}.html
+        echo "</template>"              >> client/modules/${2}/${2}.html
+        echo ""                         >> client/modules/${2}/${2}.html
+
+        echo "Template['${2}'].helpers({"  >> client/modules/${2}/${2}.js
+        echo "});"                      >> client/modules/${2}/${2}.js
+        echo ""                         >> client/modules/${2}/${2}.js
+        echo "Template['${2}'].events({"   >> client/modules/${2}/${2}.js
+        echo "});"                      >> client/modules/${2}/${2}.js
+        echo ""                         >> client/modules/${2}/${2}.js
+
+        echo ""                         >> client/modules/${2}/${2}.scss
+
+        # Succesful
+        echo "Successfully created a module called \"${2}\""
+        ;;
     create:model)
         if [ -z ${2} ]; then echo "Define a model name!"; exit; fi
         if [ -f "model/$2.js" ]; then echo "Remove the existing model $2 manually!"; exit; fi
@@ -203,13 +263,15 @@ case ${1} in
             echo ""
         fi
         echo "List of possible operations: "
-        echo -e "create:test   - Test file under tests"
-        echo -e "create:view   - View folder under client/views with html, js and less files in it"
-        echo -e "create:layout - Create a layout template which yields your content, used by iron-router"
-        echo -e "create:common - Html template file under client/views/common"
-        echo -e "create:route  - Route javascript file under client/routes"
-        echo -e "create:model  - Model with files in model/, client/subscriptions and server/publications"
-        echo -e "create:module - Module, such as a searchbar, form etc."
+        echo -e "create:test        - Test file under tests"
+        echo -e "create:view        - View folder under client/views with html, js and less files in it"
+        echo -e "create:view-sass   - View folder under client/views with html, js and sass files in it"
+        echo -e "create:layout      - Create a layout template which yields your content, used by iron-router"
+        echo -e "create:common      - Html template file under client/views/common"
+        echo -e "create:route       - Route javascript file under client/routes"
+        echo -e "create:model       - Model with files in model/, client/subscriptions and server/publications"
+        echo -e "create:module      - Module, such as a searchbar, form etc."
+        echo -e "create:module-sass - Module, such as a searchbar, form etc. (sass based)"
         echo ""
         ;;
 esac
