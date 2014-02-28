@@ -23,6 +23,7 @@ meteor
 * semantic-ui
 * collection2
 * less
+* sass
 * jquery
 * underscore
 * handlebar-helpers
@@ -30,6 +31,8 @@ meteor
 * iron-router-progress
 * accounts-password
 * accounts-ui
+* autoform
+* apm
 
 ## What's in this boilerplate
 
@@ -52,7 +55,7 @@ client/ 				# Client folder
 	lib/                # Library files that get executed first
     routes/             # All routes(*)
     startup/            # Javascript files on Meteor.startup()
-    stylesheets         # LESS files
+    stylesheets         # LESS/SASS files
     subscriptions/      # Collection subscriptions(*)
     modules/            # Meant for components, such as form and more(*)
 	views/			    # Contains all views(*)
